@@ -1,0 +1,16 @@
+# hot reload cmd
+# watchmedo auto-restart --patterns="*.py" --recursive --   docker run -p 9000:8080   -v "$(pwd)":/var/task   yolo_serverless
+
+FROM public.ecr.aws/lambda/python:3.12
+
+WORKDIR ${LAMBDA_TASK_ROOT}
+
+COPY requirements-dev.txt ${LAMBDA_TASK_ROOT}/
+
+COPY requirements-prod.txt ${LAMBDA_TASK_ROOT}/
+
+RUN pip install -r requirements-dev.txt
+
+RUN pip install -r requirements-prod.txt
+
+CMD ["lambda_function.lambda_handler"]

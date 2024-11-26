@@ -1,0 +1,7 @@
+{
+  "vpc_name": "SharedCluster",
+  "cluster_name": "SharedCluster",
+  "repository_name": "flask-ecs-pretrained",
+  "task_defn_id": "SampleTaskDefn",
+  "fargate_service_id": "FlaskFargate"
+}

@@ -1,0 +1,8 @@
+invoke
+watchdog
+pytest
+pytest-cov
+pytest-mock
+tox
+httpx
+python-multipart
