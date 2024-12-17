@@ -1,0 +1,7 @@
+.tox
+.pytest_cache
+htmlcov
+venv
+.git
+tests
+.coverage

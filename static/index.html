@@ -11,6 +11,7 @@
     <link href="./index.css" rel="stylesheet">
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link href="./css/video-js.min.css" rel="stylesheet">
     <link href="./css/videojs.record.css" rel="stylesheet">
@@ -20,6 +21,7 @@
     <script src="./js/adapter.js"></script>
 
     <script src="./js/videojs.record.js"></script>
+
 
     <script>
         tailwind.config = {
@@ -39,6 +41,7 @@
         <div class="w-1/2 hidden" id="wrapper">
             <canvas id="canvas" class="z-10 absolute top-0 left-0"></canvas>
             <!-- <video id="videoElement" autoplay muted class="border-solid border-2 border-indigo-950 rounded-xl"></video> -->
+
             <video id="videoElement" autoplay muted
                 class="video-js vjs-default-skin border-solid border-2 border-indigo-950 rounded-xl" controls
                 preload="auto" width="640" height="480"></video>
@@ -52,8 +55,6 @@
             class="text-2xl border-solid border-2 border-indigo-950 bg-transparent hover:bg-indigo-950 text-indigo hover:text-white py-3 rounded-full w-48">Start</button>
     </main>
     <script src="./index.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </body>
 

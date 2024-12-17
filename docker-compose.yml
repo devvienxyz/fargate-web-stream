@@ -1,0 +1,22 @@
+services:
+  python_http_server:
+    image: python:3.12
+    command: python -m http.server 3000 --bind 0.0.0.0
+    working_dir: /app
+    volumes:
+      - ./static:/app
+    ports:
+      - "3000:3000"
+
+  fastapi_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: uvicorn src.app:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    depends_on:
+      - python_http_server

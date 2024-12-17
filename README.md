@@ -1,12 +1,15 @@
-# fargate-ecr-pretrained
+# fargate-web-stream
 
 > Experimental template for projects (Docker + Pretrained model)  deployed to AWS Fargate
->
-> Supplemental UI project repository: [htmx-]
 
 ### Development
 
-`uvicorn src.app:app --reload`
+`docker compose up`
+
+Alternatively, if you want to run it manually:
+
+`DEBUG=1 uvicorn src.app:app --reload`
+`python -m http.server 3000 --bind 127.0.0.1`
 
 ### Running tests
 

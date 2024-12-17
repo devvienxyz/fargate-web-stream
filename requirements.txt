@@ -1,0 +1,7 @@
+python-dotenv
+ultralytics
+fastapi
+uvicorn
+ffmpeg-python
+opencv-python-headless
+python-multipart

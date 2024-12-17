@@ -101,8 +101,8 @@ def validate_video_file(filepath):
         )
 
 
-@app.post("/analyze-video/")
-async def analyze_video(stream: UploadFile = File(...)):
+@app.post("/stream/")
+async def stream(stream: UploadFile = File(...)):
     """Endpoint to receive video file and analyze frames."""
     frame_results = []
 
@@ -113,11 +113,12 @@ async def analyze_video(stream: UploadFile = File(...)):
             shutil.copyfileobj(stream.file, buffer)
 
         # Convert video to compatible format
-        temp_video = tempfile.NamedTemporaryFile(delete=False, suffix=".mp4")
-        processed_video = convert_video_to_mp4(input_video_path, temp_video.name)
+        # temp_video = tempfile.NamedTemporaryFile(delete=False, suffix=".mp4")
+        # processed_video = convert_video_to_mp4(input_video_path, temp_video.name)
 
         # Open video file
-        cap = cv2.VideoCapture(processed_video)
+        # cap = cv2.VideoCapture(processed_video)
+        cap = cv2.VideoCapture(input_video_path)
         frame_count = 0
 
         while cap.isOpened():
@@ -144,8 +145,8 @@ async def analyze_video(stream: UploadFile = File(...)):
         # Cleanup temporary files
         if os.path.exists(input_video_path):
             os.remove(input_video_path)
-        if os.path.exists(temp_video.name):
-            os.remove(temp_video.name)
+        # if os.path.exists(temp_video.name):
+        #     os.remove(temp_video.name)
 
 
 if __name__ == "__main__":
