@@ -4,7 +4,7 @@
 
 ### Development
 
-`docker compose up`
+`docker compose up --build`
 
 Alternatively, if you want to run it manually:
 

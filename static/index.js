@@ -66,23 +66,21 @@ player.on('finishRecord', async function () {
     drawResults(results)
 });
 
-function drawResults(results) {
+function drawResults(detections) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    results.forEach((frame, frameIndex) => {
-        frame.forEach(obj => {
-            const { class: className, confidence, box } = obj;
-            const [x1, y1, x2, y2] = box;
+    detections.forEach(obj => {
+        const { class: className, confidence, box } = obj;
+        const [x1, y1, x2, y2] = box;
 
-            // Draw bounding box
-            ctx.strokeStyle = 'red'; // Set the box color
-            ctx.lineWidth = 2; // Set the box line width
-            ctx.strokeRect(x1, y1, x2 - x1, y2 - y1); // Draw the rectangle
+        // Draw bounding box
+        ctx.strokeStyle = 'red'; // Set the box color
+        ctx.lineWidth = 2; // Set the box line width
+        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1); // Draw the rectangle
 
-            // Draw label with confidence
-            ctx.fillStyle = 'red'; // Set the text color
-            ctx.font = '16px Poppins'; // Set the font style
-            ctx.fillText(`${className} (${(confidence * 100).toFixed(1)}%)`, x1, y1 - 10); // Draw the label above the box
-        });
+        // Draw label with confidence
+        ctx.fillStyle = 'red'; // Set the text color
+        ctx.font = '16px Poppins'; // Set the font style
+        ctx.fillText(`${className} (${(confidence * 100).toFixed(1)}%)`, x1, y1 - 10); // Draw the label above the box
     });
 }
 
@@ -128,7 +126,7 @@ async function sendToServer(formData) {
             body: formData
         });
         const data = await response.json();
-        return data?.frames ?? [];
+        return data?.detections ?? [];
     } catch (error) {
         console.error("Error sending video data to server:", error);
         return [];

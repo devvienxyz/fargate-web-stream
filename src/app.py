@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 app = FastAPI()
-DEBUG = os.environ.get("DEBUG", 0)
+DEBUG = os.environ.get("DEBUG", 1)
 
 # CORS
 origins = ["http://localhost:3000", "http://127.0.0.1:3000"] if DEBUG else []
@@ -102,9 +102,8 @@ def validate_video_file(filepath):
 
 
 @app.post("/stream/")
-async def stream(stream: UploadFile = File(...)):
+def stream(stream: UploadFile = File(...)):
     """Endpoint to receive video file and analyze frames."""
-    frame_results = []
 
     try:
         # Save uploaded file
@@ -116,26 +115,10 @@ async def stream(stream: UploadFile = File(...)):
         # temp_video = tempfile.NamedTemporaryFile(delete=False, suffix=".mp4")
         # processed_video = convert_video_to_mp4(input_video_path, temp_video.name)
 
-        # Open video file
-        # cap = cv2.VideoCapture(processed_video)
         cap = cv2.VideoCapture(input_video_path)
-        frame_count = 0
-
-        while cap.isOpened():
-            ret, frame = cap.read()
-            if not ret:
-                break
-
-            # frame_count += 1
-            # # Analyze every 10th frame
-            # if frame_count % 10 != 0:
-            #     continue
-
-            detections = analyze_frame(frame)
-            frame_results.append(detections)
-
+        ret, frame = cap.read()
         cap.release()
-        return {"frames": frame_results}
+        return {"detections": analyze_frame(frame) if ret else []}
 
     except Exception as e:
         logger.error(f"Error processing video: {e}")
